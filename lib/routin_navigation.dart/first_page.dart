@@ -107,10 +107,42 @@ class AllCategories extends StatelessWidget {
 }
 
 class SecondPage extends StatelessWidget {
-  const SecondPage({Key? key}) : super(key: key);
+  SecondPage({Key? key}) : super(key: key);
+
+  var title;
+  var color;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    final Map arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    title = arguments['title'];
+    color = arguments['color'];
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: Container(
+        alignment: Alignment.center,
+        height: 300.0,
+        width: 300.0,
+        margin: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
+        decoration: BoxDecoration(
+          color: color,
+          border: Border.all(
+            color: Colors.black26,
+            width: 10.0,
+          ),
+        ),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 25.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.black38,
+          ),
+        ),
+      ),
+    );
   }
 }
