@@ -177,8 +177,53 @@ class ThirdPage extends StatelessWidget {
         title: Text('data'),
       ),
       body: ListView(
-        children: [],
+        children: DUMMY_BOOKS.map((e) {
+          return BooksPage(
+            id: e.id,
+            title: e.title,
+            color: e.color,
+            name: e.name,
+            detail: e.detail,
+          );
+        }).toList(),
       ),
+    );
+  }
+}
+
+class BooksPage extends StatelessWidget {
+  final String title;
+  final Color color;
+  final String id;
+  final String name;
+  final String detail;
+  const BooksPage({
+    Key? key,
+    required this.id,
+    required this.title,
+    required this.color,
+    required this.name,
+    required this.detail,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        Container(
+          child: Text(id),
+        ),
+        Container(
+          child: Text(title),
+        ),
+        Container(
+          child: Text(name),
+        ),
+        Container(
+          child: Text(detail),
+        ),
+        // Container(child: Text(id),),
+      ],
     );
   }
 }
