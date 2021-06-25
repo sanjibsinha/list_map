@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:list_map/routin_navigation.dart/dummy_books.dart';
 import 'package:list_map/routin_navigation.dart/dunny.dart';
 
 class FirstPage extends StatelessWidget {
@@ -13,6 +14,7 @@ class FirstPage extends StatelessWidget {
       routes: {
         '/': (context) => FirstPageBody(),
         '/categories': (context) => SecondPage(),
+        '/books': (context) => ThirdPage(),
       },
     );
   }
@@ -111,6 +113,19 @@ class SecondPage extends StatelessWidget {
 
   var title;
   var color;
+  var id;
+  var name;
+  var detail;
+
+  void goToBooksPage(BuildContext context, title) {
+    Navigator.pushNamed(context, '/books', arguments: {
+      'id': id,
+      'title': title,
+      'color': color,
+      'name': name,
+      'detail': detail,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,27 +136,48 @@ class SecondPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: Container(
-        alignment: Alignment.center,
-        height: 300.0,
-        width: 300.0,
-        margin: const EdgeInsets.all(20.0),
-        padding: const EdgeInsets.all(20.0),
-        decoration: BoxDecoration(
-          color: color,
-          border: Border.all(
-            color: Colors.black26,
-            width: 10.0,
+      body: InkWell(
+        onTap: () {
+          goToBooksPage(context, title);
+        },
+        child: Container(
+          alignment: Alignment.center,
+          height: 300.0,
+          width: 300.0,
+          margin: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
+          decoration: BoxDecoration(
+            color: color,
+            border: Border.all(
+              color: Colors.black26,
+              width: 10.0,
+            ),
+          ),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.black38,
+            ),
           ),
         ),
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 25.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.black38,
-          ),
-        ),
+      ),
+    );
+  }
+}
+
+class ThirdPage extends StatelessWidget {
+  const ThirdPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('data'),
+      ),
+      body: ListView(
+        children: [],
       ),
     );
   }
