@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:list_map/routin_navigation.dart/categories.dart';
 
-const DUMMY = const [
+const DUMMY_CATEGORIES = const [
   Categories(
     id: 'c1',
     title: 'PHP',

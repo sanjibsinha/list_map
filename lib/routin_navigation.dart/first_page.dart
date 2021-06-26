@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:list_map/routin_navigation.dart/dummy_books.dart';
-import 'package:list_map/routin_navigation.dart/dunny.dart';
+import 'package:list_map/routin_navigation.dart/dummy_categories.dart';
 
 class FirstPage extends StatelessWidget {
   const FirstPage({Key? key}) : super(key: key);
@@ -14,7 +14,6 @@ class FirstPage extends StatelessWidget {
       routes: {
         '/': (context) => FirstPageBody(),
         '/categories': (context) => SecondPage(),
-        '/books': (context) => ThirdPage(),
       },
     );
   }
@@ -35,7 +34,7 @@ class FirstPageBody extends StatelessWidget {
           crossAxisSpacing: 20.0,
           mainAxisSpacing: 20.0,
         ),
-        children: DUMMY.map(
+        children: DUMMY_CATEGORIES.map(
           (e) {
             return AllCategories(
               id: e.id,
@@ -114,116 +113,38 @@ class SecondPage extends StatelessWidget {
   var title;
   var color;
   var id;
-  var name;
-  var detail;
-
-  void goToBooksPage(BuildContext context, title) {
-    Navigator.pushNamed(context, '/books', arguments: {
-      'id': id,
-      'title': title,
-      'color': color,
-      'name': name,
-      'detail': detail,
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     final Map arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    title = arguments['title'];
-    color = arguments['color'];
+    final id = arguments['id'];
+    final title = arguments['title'];
+    final color = arguments['color'];
+    final categoryBooks = DUMMY_BOOKS.where((book) {
+      return book.categories.contains(id);
+    }).toList();
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        backgroundColor: color,
       ),
-      body: InkWell(
-        onTap: () {
-          goToBooksPage(context, title);
-        },
-        child: Container(
-          alignment: Alignment.center,
-          height: 300.0,
-          width: 300.0,
-          margin: const EdgeInsets.all(20.0),
-          padding: const EdgeInsets.all(20.0),
-          decoration: BoxDecoration(
-            color: color,
-            border: Border.all(
-              color: Colors.black26,
-              width: 10.0,
-            ),
-          ),
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.black38,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ThirdPage extends StatelessWidget {
-  const ThirdPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('data'),
-      ),
-      body: ListView(
-        children: DUMMY_BOOKS.map((e) {
-          return BooksPage(
-            id: e.id,
-            title: e.title,
-            color: e.color,
-            name: e.name,
-            detail: e.detail,
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              Text(categoryBooks[index].title),
+              const SizedBox(
+                height: 8.0,
+              ),
+              Text(categoryBooks[index].detail),
+              const SizedBox(
+                height: 8.0,
+              ),
+            ],
           );
-        }).toList(),
+        },
+        itemCount: categoryBooks.length,
       ),
-    );
-  }
-}
-
-class BooksPage extends StatelessWidget {
-  final String title;
-  final Color color;
-  final String id;
-  final String name;
-  final String detail;
-  const BooksPage({
-    Key? key,
-    required this.id,
-    required this.title,
-    required this.color,
-    required this.name,
-    required this.detail,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Container(
-          child: Text(id),
-        ),
-        Container(
-          child: Text(title),
-        ),
-        Container(
-          child: Text(name),
-        ),
-        Container(
-          child: Text(detail),
-        ),
-        // Container(child: Text(id),),
-      ],
     );
   }
 }
