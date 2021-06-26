@@ -1,6 +1,9 @@
 # list_map
 
-A new Flutter project.
+A new Flutter project for book Better Flutter.
+Get your free copy or set your own price.
+- [Better Flutter](https://leanpub.com/betterflutter)
+- [For more Flutter articles](https://sanjibsinha.com)
 
 ## Getting Started
 
