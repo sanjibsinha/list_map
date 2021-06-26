@@ -10,6 +10,7 @@ class FirstPage extends StatelessWidget {
     return MaterialApp(
       title: 'Routing test',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
       initialRoute: '/',
       routes: {
         '/': (context) => FirstPageBody(),
@@ -125,7 +126,12 @@ class SecondPage extends StatelessWidget {
     }).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(
+          title,
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
         backgroundColor: color,
       ),
       body: ListView.builder(
@@ -145,12 +151,39 @@ class SecondPage extends StatelessWidget {
                     end: Alignment.bottomRight,
                   ),
                 ),
-                child: Text(categoryBooks[index].title),
+                child: Text(
+                  categoryBooks[index].title,
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 8.0,
               ),
-              Text(categoryBooks[index].detail),
+              Container(
+                margin: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.all(5.0),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      color.withOpacity(0.3),
+                      Colors.yellowAccent,
+                    ],
+                    begin: Alignment.bottomRight,
+                    end: Alignment.topLeft,
+                  ),
+                ),
+                child: Text(
+                  categoryBooks[index].detail,
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
               const SizedBox(
                 height: 8.0,
               ),
