@@ -132,7 +132,21 @@ class SecondPage extends StatelessWidget {
         itemBuilder: (context, index) {
           return Column(
             children: [
-              Text(categoryBooks[index].title),
+              Container(
+                margin: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.all(5.0),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      color.withOpacity(0.1),
+                      color,
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                child: Text(categoryBooks[index].title),
+              ),
               const SizedBox(
                 height: 8.0,
               ),
